@@ -42,8 +42,8 @@ class RendererFrame(Component):
 
         rot = self.parent.transform.rotation
         sx, sy = self.parent.transform.scale
-        s_width = int(self.width * sx)
-        s_height = int(self.height * sy)
+        s_width = max(0, int(self.width * sx))
+        s_height = max(0, int(self.height * sy))
 
         temp_surf = pygame.Surface((s_width, s_height), pygame.SRCALPHA)
 
