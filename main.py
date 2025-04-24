@@ -2,13 +2,26 @@ from core import Game, FileManager, Scene
 from core import Object, components
 
 
-def create_player(pos):
+def create_herick(pos):
     player = Object()
     player.add_component(components.Transform(pos, 0.0, (1, 1)))
     player.add_component(components.Tag("player"))
     player.add_component(components.Active(True))
     player.add_component(components.RendererFrame(100, 100))
     player.add_component(components.SpriteRenderer("assets/player.png"))
+    player.add_component(components.MovementTester())
+    player.add_component(components.RotationTester())
+    player.add_component(components.ScaleTester())
+    return player
+
+
+def create_chara(pos):
+    player = Object()
+    player.add_component(components.Transform(pos, 0.0, (1, 1)))
+    player.add_component(components.Tag("player"))
+    player.add_component(components.Active(True))
+    player.add_component(components.RendererFrame(100, 100))
+    player.add_component(components.SpriteRenderer("assets/chara.png"))
     player.add_component(components.MovementTester())
     player.add_component(components.RotationTester())
     player.add_component(components.ScaleTester())
@@ -39,7 +52,7 @@ if __name__ == "__main__":
     main_scn = Scene()
 
     # Add objects to the scene
-    main_scn.add_obj(create_player((100, 100)))
+    main_scn.add_obj(create_chara((100, 100)))
     main_scn.add_obj(create_box((0, 0)))
     main_scn.add_obj(create_camera())
 

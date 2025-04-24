@@ -34,7 +34,7 @@
             ],
             "SpriteRenderer": [
                 {
-                    "path": "assets/player.png"
+                    "path": "assets/chara.png"
                 }
             ],
             "MovementTester": [
