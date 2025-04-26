@@ -10,6 +10,8 @@ from .utilities.active import Active
 ### 🎨 **Rendering Components**
 from .render.renderer_frame import RendererFrame
 from .render.sprite_renderer import SpriteRenderer
+from .render.sprite_sheet import SpriteSheet
+from .render.animated_sprite_renderer import AnimatedSpriteRenderer
 
 # from .render.animator import Animator
 # from .render.tilemap_renderer import TilemapRenderer

@@ -44,5 +44,6 @@ class Scene:
     @classmethod
     def from_json(cls, data: dict) -> "Scene":
         scn = cls()
-        scn.objects = [Object.from_json(o) for o in data["objects"]]
+        for o in data["objects"]:
+            scn.add_obj(Object.from_json(o))
         return scn

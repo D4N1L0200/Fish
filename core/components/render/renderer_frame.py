@@ -33,6 +33,7 @@ class RendererFrame(Component):
             return
 
         from ..render.sprite_renderer import SpriteRenderer
+        from ..render.animated_sprite_renderer import AnimatedSpriteRenderer
 
         world_pos = self.parent.transform.position
 
@@ -47,12 +48,32 @@ class RendererFrame(Component):
 
         temp_surf = pygame.Surface((s_width, s_height), pygame.SRCALPHA)
 
-        for spriterenderer in self.parent.get_components("spriterenderer"):
-            if isinstance(spriterenderer, SpriteRenderer):
-                base_img = pygame.transform.scale(
-                    spriterenderer.img, (s_width, s_height)
-                )
-                temp_surf.blit(base_img, (0, 0))
+        animatedspriterenderers: list[Component] = self.parent.get_components(
+            "animatedspriterenderer"
+        )
+
+        if animatedspriterenderers != []:
+            for animatedspriterenderer in animatedspriterenderers:
+                if isinstance(animatedspriterenderer, AnimatedSpriteRenderer):
+                    if animatedspriterenderer.img is None:
+                        continue
+
+                    base_img = pygame.transform.scale(
+                        animatedspriterenderer.img, (s_width, s_height)
+                    )
+                    temp_surf.blit(base_img, (0, 0))
+        else:
+            spriterenderers: list[Component] = self.parent.get_components(
+                "spriterenderer"
+            )
+
+            if spriterenderers != []:
+                for spriterenderer in spriterenderers:
+                    if isinstance(spriterenderer, SpriteRenderer):
+                        base_img = pygame.transform.scale(
+                            spriterenderer.img, (s_width, s_height)
+                        )
+                        temp_surf.blit(base_img, (0, 0))
 
         rotated = pygame.transform.rotate(temp_surf, -rot)
         rect = rotated.get_rect(center=pos)

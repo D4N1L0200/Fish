@@ -17,11 +17,16 @@ def create_herick(pos):
 
 def create_chara(pos):
     player = Object()
-    player.add_component(components.Transform(pos, 0.0, (1, 1)))
+    player.add_component(components.Transform(pos, 0.0, (19 / 20, 29 / 20)))
     player.add_component(components.Tag("player"))
     player.add_component(components.Active(True))
     player.add_component(components.RendererFrame(100, 100))
-    player.add_component(components.SpriteRenderer("assets/chara.png"))
+    player.add_component(
+        components.SpriteSheet("assets/chara.png", (4, 3), (1, 1), (0, 0))
+    )
+    player.add_component(
+        components.AnimatedSpriteRenderer([(0, 0), (1, 0), (2, 0), (3, 0)], 4)
+    )
     player.add_component(components.MovementTester())
     player.add_component(components.RotationTester())
     player.add_component(components.ScaleTester())
@@ -60,7 +65,7 @@ if __name__ == "__main__":
     FileManager.save_scene(main_scn, "main_scn")
 
     # Load scene from file if needed
-    # main_scn = Scene.from_json(FileManager.load_scene("main_scn"))
+    main_scn = Scene.from_json(FileManager.load_scene("main_scn"))
 
     game.scenes["main"] = main_scn
     game.active_scene = "main"
