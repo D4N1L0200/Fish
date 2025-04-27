@@ -10,13 +10,13 @@ class SpriteSheet(Component):
 
     def __init__(
         self,
-        path: pathlib.Path,
+        path: pathlib.Path | str,
         lenght: tuple[int, int],
         spacing: tuple[int, int] = (0, 0),
         padding: tuple[int, int] = (0, 0),
     ) -> None:
         super().__init__()
-        self._path: pathlib.Path = path
+        self._path: pathlib.Path = pathlib.Path(path)
         self._img: pygame.Surface = pygame.image.load(self._path)
         self._lenght: tuple[int, int] = lenght
         self._spacing: tuple[int, int] = spacing

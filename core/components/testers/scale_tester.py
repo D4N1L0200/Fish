@@ -1,5 +1,6 @@
 import pygame
 from ..component import Component
+from ..input.input_listener import InputListener
 from ..world.transform import Transform
 
 
@@ -22,26 +23,24 @@ class ScaleTester(Component):
     def handle_events(self, event: pygame.event.Event) -> None:
         super().handle_events(event)
 
-        scale: tuple[float, float] = self.delta
+        if self.parent is None:
+            return
 
-        if event.type == pygame.KEYDOWN:
-            match event.key:
-                case pygame.K_UP:
-                    self.delta = (scale[0], scale[1] - self.speed)
-                case pygame.K_DOWN:
-                    self.delta = (scale[0], scale[1] + self.speed)
-                case pygame.K_LEFT:
-                    self.delta = (scale[0] - self.speed, scale[1])
-                case pygame.K_RIGHT:
-                    self.delta = (scale[0] + self.speed, scale[1])
+        input_listener = self.parent.get_components("inputlistener")[0]
+        if not input_listener or not isinstance(input_listener, InputListener):
+            return
 
-        elif event.type == pygame.KEYUP:
-            match event.key:
-                case pygame.K_UP:
-                    self.delta = (scale[0], scale[1] + self.speed)
-                case pygame.K_DOWN:
-                    self.delta = (scale[0], scale[1] - self.speed)
-                case pygame.K_LEFT:
-                    self.delta = (scale[0] + self.speed, scale[1])
-                case pygame.K_RIGHT:
-                    self.delta = (scale[0] - self.speed, scale[1])
+        dx: int = 0
+        dy: int = 0
+
+        if input_listener.get_input("scale_up"):
+            dy -= 1
+        if input_listener.get_input("scale_down"):
+            dy += 1
+
+        if input_listener.get_input("scale_left"):
+            dx -= 1
+        if input_listener.get_input("scale_right"):
+            dx += 1
+
+        self.delta = (dx * self.speed, dy * self.speed)

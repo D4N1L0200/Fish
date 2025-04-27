@@ -25,9 +25,8 @@ from .render.animated_sprite_renderer import AnimatedSpriteRenderer
 # from .timer import Timer
 
 ### 🕹️ **Input Components**
-# from .input.input_listener import InputListener
-# from .input.clickable import Clickable
-# from .input.draggable import Draggable
+from .input.input_mapper import InputMapper
+from .input.input_listener import InputListener
 
 ### 🧱 **Physics & Collision**
 # from .rigid_body import RigidBody
