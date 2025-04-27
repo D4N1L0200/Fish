@@ -66,4 +66,4 @@ class AnimatedSpriteRenderer(Component):
         return {"sprites": self._sprites, "fps": self._fps}
 
     def __repr__(self):
-        return f"{super().__repr__()}({self._path})"
+        return f"{super().__repr__()}({self._sprites}, {self._fps})"
