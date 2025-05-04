@@ -64,3 +64,4 @@ from .world.follow import Follow
 from .testers.movement_tester import MovementTester
 from .testers.rotation_tester import RotationTester
 from .testers.scale_tester import ScaleTester
+from .testers.prefab_tester import PrefabTester

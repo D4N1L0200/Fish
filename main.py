@@ -1,5 +1,4 @@
-from core import Game, FileManager, Scene
-from core import Object, components
+from core import Game, FileManager, Scene, Object, components, Prefabs, components
 
 
 def create_controller():
@@ -35,6 +34,7 @@ def create_chara():
     player.add_component(components.MovementTester())
     player.add_component(components.RotationTester())
     player.add_component(components.ScaleTester())
+    player.add_component(components.PrefabTester())
     return player
 
 
@@ -47,9 +47,9 @@ def create_camera():
     return camera
 
 
-def create_box(pos):
+def create_box():
     box = Object()
-    box.add_component(components.Transform(pos, 180, (0.5, 0.5)))
+    box.add_component(components.Transform((0.0, 0.0), 180, (0.5, 0.5)))
     box.add_component(components.Active(True))
     box.add_component(components.RendererFrame(100, 100))
     box.add_component(components.SpriteRenderer("assets/player.png"))
@@ -65,11 +65,8 @@ if __name__ == "__main__":
     main_scn.add_obj(create_controller())
     main_scn.add_obj(create_chara())
 
-    import random
-
-    for i in range(20):
-        pos = (random.randint(-1000, 1000), random.randint(-1000, 1000))
-        main_scn.add_obj(create_box(pos))
+    Prefabs.add_prefab("box", create_box)
+    Prefabs.link_game(game)
 
     main_scn.add_obj(create_camera())
 

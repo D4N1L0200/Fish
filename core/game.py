@@ -4,12 +4,17 @@ from .scene import Scene
 
 
 class Game:
-    def __init__(self, width=1280, height=720, title="Fishing Island Experiment") -> None:
+    def __init__(
+        self, width=1280, height=720, title="Fishing Island Experiment"
+    ) -> None:
         pygame.init()
         self.screen = pygame.display.set_mode((width, height))
         pygame.display.set_caption(title)
         self.clock = pygame.time.Clock()
         self.running = True
+
+        pygame.event.set_blocked(None)
+        pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP])
 
         self.scenes: dict[str, Scene] = {}
         self.active_scene: str = ""
