@@ -1,20 +1,12 @@
 import pygame
 from ..component import Component
 from ..input.input_listener import InputListener
-from ..world.transform import Transform
-
-
-# def create_box(pos):
-#     box = Object()
-#     box.add_component(components.Transform(pos, 180, (0.5, 0.5)))
-#     box.add_component(components.Active(True))
-#     box.add_component(components.RendererFrame(100, 100))
-#     box.add_component(components.SpriteRenderer("assets/player.png"))
-#     return box
+from random import randint
 
 
 class PrefabTester(Component):
     def __init__(self) -> None:
+        self.range: int = 500
         super().__init__()
 
     def handle_events(self, event: pygame.event.Event) -> None:
@@ -28,4 +20,8 @@ class PrefabTester(Component):
             return
 
         if input_listener.get_input("space"):
-            print("space")
+            from ...prefabs import Prefabs
+
+            box = Prefabs.spawn("main", "box")
+            pos = (randint(-self.range, self.range), randint(-self.range, self.range))
+            box.transform.position = pos
