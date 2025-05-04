@@ -17,6 +17,7 @@ class InputListener(Component):
             pygame.K_DOWN: "scale_down",
             pygame.K_LEFT: "scale_left",
             pygame.K_RIGHT: "scale_right",
+            pygame.K_SPACE: "space",
         }
 
     def handle_events(self, event: pygame.event.Event) -> None:

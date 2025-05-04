@@ -35,6 +35,7 @@ def create_chara():
     player.add_component(components.MovementTester())
     player.add_component(components.RotationTester())
     player.add_component(components.ScaleTester())
+    player.add_component(components.PrefabTester())
     return player
 
 
@@ -65,11 +66,11 @@ if __name__ == "__main__":
     main_scn.add_obj(create_controller())
     main_scn.add_obj(create_chara())
 
-    import random
+    # import random
 
-    for i in range(20):
-        pos = (random.randint(-1000, 1000), random.randint(-1000, 1000))
-        main_scn.add_obj(create_box(pos))
+    # for i in range(20):
+    #     pos = (random.randint(-1000, 1000), random.randint(-1000, 1000))
+    #     main_scn.add_obj(create_box(pos))
 
     main_scn.add_obj(create_camera())
 
