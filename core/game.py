@@ -17,11 +17,11 @@ class Game:
         if pygame.joystick.get_count() > 1:
             self.joystick = pygame.joystick.Joystick(0)
             self.joystick.init()
-            print(self.joystick.get_name())
-            print(self.joystick.get_numaxes())
-            print(self.joystick.get_numballs())
-            print(self.joystick.get_numhats())
-            print(self.joystick.get_numbuttons())
+            # print(self.joystick.get_name())
+            # print(self.joystick.get_numaxes())
+            # print(self.joystick.get_numballs())
+            # print(self.joystick.get_numhats())
+            # print(self.joystick.get_numbuttons())
 
         pygame.event.set_blocked(None)
         pygame.event.set_allowed(
@@ -30,7 +30,6 @@ class Game:
                 pygame.KEYDOWN,
                 pygame.KEYUP,
                 pygame.JOYAXISMOTION,
-                pygame.JOYBALLMOTION,
                 pygame.JOYHATMOTION,
                 pygame.JOYBUTTONUP,
                 pygame.JOYBUTTONDOWN,
