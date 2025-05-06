@@ -82,10 +82,10 @@ class InputListener(Component):
                 axis_binds: list[str] = self.mapping["joystick"][f"axis_{event.axis}"].split(" | ")
                 axis_value: float = round(event.value, 4)
                 if len(axis_binds) == 2:
-                    if axis_value > 0:
+                    if axis_value > 0.5:
                         self.set_input(axis_binds[0], True)
                         self.set_input(axis_binds[1], False)
-                    elif axis_value < 0:
+                    elif axis_value < -0.5:
                         self.set_input(axis_binds[0], False)
                         self.set_input(axis_binds[1], True)
                     else:
