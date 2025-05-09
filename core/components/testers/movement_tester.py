@@ -1,11 +1,11 @@
 import pygame
 from ..component import Component
-from ..input.input_listener import InputListener
 from ..world.transform import Transform
+from ..input.input_listener import InputListener
 
 
 class MovementTester(Component):
-    dependencies: list[type] = [Transform]
+    dependencies: list[type] = [Transform, InputListener]
 
     def __init__(self) -> None:
         super().__init__()
@@ -26,9 +26,7 @@ class MovementTester(Component):
         if self.parent is None:
             return
 
-        input_listener = self.parent.get_components("inputlistener")[0]
-        if not input_listener or not isinstance(input_listener, InputListener):
-            return
+        input_listener = self.parent.inputlistener
 
         dx: int = 0
         dy: int = 0

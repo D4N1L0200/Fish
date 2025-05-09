@@ -57,7 +57,7 @@ class AnimatedSpriteRenderer(Component):
         if self.parent is None:
             return
 
-        sprite_sheet: Component = self.parent.get_components("spritesheet")[0]
+        sprite_sheet: Component = self.parent.spritesheet
 
         if isinstance(sprite_sheet, SpriteSheet):
             self._img = sprite_sheet.get(*self._sprites[self._idx])

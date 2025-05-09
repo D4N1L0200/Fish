@@ -1,10 +1,12 @@
 import pygame
+from random import randint
 from ..component import Component
 from ..input.input_listener import InputListener
-from random import randint
 
 
 class PrefabTester(Component):
+    dependencies: list[type] = [InputListener]
+
     def __init__(self) -> None:
         self.range: int = 500
         super().__init__()
@@ -15,9 +17,7 @@ class PrefabTester(Component):
         if self.parent is None:
             return
 
-        input_listener = self.parent.get_components("inputlistener")[0]
-        if not input_listener or not isinstance(input_listener, InputListener):
-            return
+        input_listener = self.parent.inputlistener
 
         if input_listener.get_input("space"):
             from ...prefabs import Prefabs
