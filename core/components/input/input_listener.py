@@ -20,6 +20,8 @@ class InputListener(Component):
             pygame.K_SPACE: "space",
         }
 
+    def refresh_mapping(self) -> None: ...
+
     def handle_events(self, event: pygame.event.Event) -> None:
         super().handle_events(event)
 

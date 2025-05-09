@@ -1,11 +1,10 @@
 import pygame
 from random import randint
 from ..component import Component
-from ..input.input_listener import InputListener
 
 
 class PrefabTester(Component):
-    dependencies: list[type] = [InputListener]
+    required_dependencies: list[str] = ["InputListener"]
 
     def __init__(self) -> None:
         self.range: int = 500

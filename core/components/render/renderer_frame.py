@@ -1,11 +1,10 @@
 import pygame
 from typing import Any
 from ..component import Component
-from ..world.transform import Transform
 
 
 class RendererFrame(Component):
-    dependencies: list[type] = [Transform]
+    required_dependencies: list[str] = ["Transform", "SpriteRenderer | AnimatedSpriteRenderer"]
 
     def __init__(self, width: int, height: int) -> None:
         super().__init__()

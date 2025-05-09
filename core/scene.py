@@ -16,6 +16,10 @@ class Scene:
             if o.has("tag") and o.tag.has(tag):
                 objs.append(o)
         return objs
+    
+    def start(self) -> None:
+        for o in self.objects:
+            o.start()
 
     def update(self, dt: float) -> None:
         for o in self.objects:

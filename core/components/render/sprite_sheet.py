@@ -2,11 +2,10 @@ import pygame
 import pathlib
 from typing import Any
 from ..component import Component
-from .renderer_frame import RendererFrame
 
 
 class SpriteSheet(Component):
-    dependencies: list[type] = [RendererFrame]
+    required_dependencies: list[str] = ["RendererFrame"]
 
     def __init__(
         self,
@@ -36,9 +35,7 @@ class SpriteSheet(Component):
                 x = (col * spr_width) + (col * self._spacing[1]) + self._padding[1]
                 y = (row * spr_height) + (row * self._spacing[0]) + self._padding[0]
                 self._imgs[row].append(
-                    self._img.subsurface(
-                        (x, y, spr_width, spr_height)
-                    )
+                    self._img.subsurface((x, y, spr_width, spr_height))
                 )
 
     @property
@@ -88,7 +85,7 @@ class SpriteSheet(Component):
             "spacing": self._spacing,
             "padding": self._padding,
         }
-        
+
     def get(self, x: int, y: int) -> pygame.Surface:
         return self._imgs[y][x]
 

@@ -2,12 +2,11 @@ import pygame
 import time
 from typing import Any
 from ..component import Component
-from .renderer_frame import RendererFrame
 from .sprite_sheet import SpriteSheet
 
 
 class AnimatedSpriteRenderer(Component):
-    dependencies: list[type] = [RendererFrame, SpriteSheet]
+    required_dependencies: list[str] = ["RendererFrame", "SpriteSheet"]
 
     def __init__(self, sprites: list[tuple[int, int]], fps: int) -> None:
         super().__init__()
@@ -57,10 +56,9 @@ class AnimatedSpriteRenderer(Component):
         if self.parent is None:
             return
 
-        sprite_sheet: Component = self.parent.spritesheet
+        sprite_sheet: SpriteSheet = self.parent.spritesheet
 
-        if isinstance(sprite_sheet, SpriteSheet):
-            self._img = sprite_sheet.get(*self._sprites[self._idx])
+        self._img = sprite_sheet.get(*self._sprites[self._idx])
 
     def to_json(self) -> dict[str, Any]:
         return {"sprites": self._sprites, "fps": self._fps}

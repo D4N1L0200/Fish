@@ -14,25 +14,42 @@ class Object:
     def add_component(self, component: components.Component) -> None:
         key: str = component.__class__.__name__.lower()
 
-        if component.dependencies:
-            dependencies: list[type] = component.dependencies.copy()
-
-            for cs in self.components.values():
-                for c in cs:
-                    if type(c) in dependencies:
-                        dependencies.remove(type(c))
-
-            if dependencies:
-                raise AttributeError(
-                    f"{self.__class__.__name__}'s {key} depends on {dependencies[0].__name__}"
-                )
-
         component.parent = self
 
         self.components.setdefault(key, []).append(component)
 
     def get_components(self, name: str) -> list[components.Component]:
         return self.components.get(name.lower(), [])
+    
+    def start(self) -> None:
+        for components in self.components.values():
+            for component in components:
+                key: str = component.__class__.__name__.lower()
+
+                if not component.required_dependencies: 
+                    continue
+
+                dependencies: list[str] = component.required_dependencies.copy()
+                required_dependencies: list[str] = [d for d in dependencies if " " not in d]
+                selected_dependencies: list[str] = [d for d in dependencies if "|" in d]
+
+                for cs in self.components.values():
+                    for c in cs:
+                        type_name: str = type(c).__name__
+                        if type_name in required_dependencies:
+                            required_dependencies.remove(type_name)
+
+                for cs in self.components.values():
+                    for c in cs:
+                        type_name = type(c).__name__
+                        for d in selected_dependencies:
+                            if type_name in d:
+                                selected_dependencies.remove(d)
+
+                if required_dependencies != [] or selected_dependencies != []:
+                    raise AttributeError(
+                        f"{self.__class__.__name__}'s {key} depends on {required_dependencies[0]}"
+                    )
 
     def update(self, dt: float) -> None:
         for comps in self.components.values():

@@ -1,11 +1,9 @@
 import pygame
 from ..component import Component
-from ..world.transform import Transform
-from ..input.input_listener import InputListener
 
 
 class RotationTester(Component):
-    dependencies: list[type] = [Transform, InputListener]
+    required_dependencies: list[str] = ["Transform", "InputListener"]
 
     def __init__(self) -> None:
         super().__init__()

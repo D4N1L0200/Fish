@@ -2,11 +2,10 @@ import pygame
 import pathlib
 from typing import Any
 from ..component import Component
-from .renderer_frame import RendererFrame
 
 
 class SpriteRenderer(Component):
-    dependencies: list[type] = [RendererFrame]
+    required_dependencies: list[str] = ["RendererFrame"]
 
     def __init__(self, path: pathlib.Path | str) -> None:
         super().__init__()

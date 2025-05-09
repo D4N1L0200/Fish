@@ -7,7 +7,7 @@ if TYPE_CHECKING:
 
 
 class Component:
-    dependencies: list[type] = []
+    required_dependencies: list[str] = []
 
     def __init__(self) -> None:
         self.parent: Object | None = None

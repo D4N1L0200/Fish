@@ -35,6 +35,8 @@ class Game:
         pygame.display.flip()
 
     def run(self) -> None:
+        self.scenes[self.active_scene].start()
+        
         while self.running:
             if self.active_scene not in self.scenes:
                 raise Exception(f"Scene {self.active_scene} does not exist")
