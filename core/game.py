@@ -8,13 +8,33 @@ class Game:
         self, width=1280, height=720, title="Fishing Island Experiment"
     ) -> None:
         pygame.init()
+        pygame.joystick.init()
         self.screen = pygame.display.set_mode((width, height))
         pygame.display.set_caption(title)
         self.clock = pygame.time.Clock()
         self.running = True
 
+        if pygame.joystick.get_count() > 1:
+            self.joystick = pygame.joystick.Joystick(0)
+            self.joystick.init()
+            # print(self.joystick.get_name())
+            # print(self.joystick.get_numaxes())
+            # print(self.joystick.get_numballs())
+            # print(self.joystick.get_numhats())
+            # print(self.joystick.get_numbuttons())
+
         pygame.event.set_blocked(None)
-        pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP])
+        pygame.event.set_allowed(
+            [
+                pygame.QUIT,
+                pygame.KEYDOWN,
+                pygame.KEYUP,
+                pygame.JOYAXISMOTION,
+                pygame.JOYHATMOTION,
+                pygame.JOYBUTTONUP,
+                pygame.JOYBUTTONDOWN,
+            ]
+        )
 
         self.scenes: dict[str, Scene] = {}
         self.active_scene: str = ""
