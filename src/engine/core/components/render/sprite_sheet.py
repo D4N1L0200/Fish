@@ -1,3 +1,4 @@
+import os
 import pygame
 import pathlib
 from typing import Any
@@ -5,6 +6,7 @@ from ..component import Component
 
 
 class SpriteSheet(Component):
+    root_dir: str = ""
     required_dependencies: list[str] = ["RendererFrame"]
 
     def __init__(
@@ -15,7 +17,7 @@ class SpriteSheet(Component):
         padding: tuple[int, int] = (0, 0),
     ) -> None:
         super().__init__()
-        self._path: pathlib.Path = pathlib.Path(path)
+        self._path: pathlib.Path = pathlib.Path(os.path.join(self.root_dir, path))
         self._img: pygame.Surface = pygame.image.load(self._path)
         self._lenght: tuple[int, int] = lenght
         self._spacing: tuple[int, int] = spacing

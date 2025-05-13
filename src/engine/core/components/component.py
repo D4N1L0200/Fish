@@ -3,7 +3,7 @@ import pygame
 from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
-    from core import Object
+    from ...core import Object
 
 
 class Component:

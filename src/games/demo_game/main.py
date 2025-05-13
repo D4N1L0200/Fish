@@ -1,4 +1,33 @@
-from core import Game, FileManager, Scene, Object, components, Prefabs, components
+import os
+from engine import set_root
+from engine.core import Game, FileManager, Scene, Object, components, Prefabs, components
+
+
+def main():
+    print("Hello, World!")
+    game = Game()
+
+    main_scn = Scene()
+
+    # Add objects to the scene
+    main_scn.add_obj(create_controller())
+    main_scn.add_obj(create_chara())
+
+    Prefabs.add_prefab("box", create_box)
+    Prefabs.link_game(game)
+
+    main_scn.add_obj(create_camera())
+
+    # Save the scene
+    FileManager.save_scene(main_scn, "main_scn")
+
+    # Load scene from file if needed
+    main_scn = Scene.from_json(FileManager.load_scene("main_scn"))
+
+    game.scenes["main"] = main_scn
+    game.active_scene = "main"
+
+    game.run()
 
 
 def create_controller():
@@ -16,7 +45,7 @@ def create_chara():
     player.add_component(components.Active(True))
     player.add_component(components.RendererFrame(100, 100))
     player.add_component(
-        components.SpriteSheet("assets/chara.png", (4, 3), (1, 1), (0, 0))
+        components.SpriteSheet("assets/sprites/chara.png", (4, 3), (1, 1), (0, 0))
     )
     player.add_component(
         components.AnimatedSpriteRenderer([(0, 0), (1, 0), (2, 0), (3, 0)], 4)
@@ -52,31 +81,10 @@ def create_box():
     box.add_component(components.Transform((0.0, 0.0), 180, (0.5, 0.5)))
     box.add_component(components.Active(True))
     box.add_component(components.RendererFrame(100, 100))
-    box.add_component(components.SpriteRenderer("assets/player.png"))
+    box.add_component(components.SpriteRenderer("assets/sprites/player.png"))
     return box
 
 
 if __name__ == "__main__":
-    game = Game()
-
-    main_scn = Scene()
-
-    # Add objects to the scene
-    main_scn.add_obj(create_controller())
-    main_scn.add_obj(create_chara())
-
-    Prefabs.add_prefab("box", create_box)
-    Prefabs.link_game(game)
-
-    main_scn.add_obj(create_camera())
-
-    # Save the scene
-    FileManager.save_scene(main_scn, "main_scn")
-
-    # Load scene from file if needed
-    main_scn = Scene.from_json(FileManager.load_scene("main_scn"))
-
-    game.scenes["main"] = main_scn
-    game.active_scene = "main"
-
-    game.run()
+    set_root(os.path.dirname(os.path.abspath(__file__)))
+    main()

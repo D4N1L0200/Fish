@@ -1,0 +1,11 @@
+{
+    "name": "Demo Game",
+    "clean_name": "demo_game",
+    "description": "No description",
+    "executable": "main.py",
+    "version": "0.0.1",
+    "author": "Anonymous",
+    "created_on": "2025-05-12 10:56:11.527438",
+    "last-run": "2025-05-13 11:50:45.986802",
+    "times-run": 65
+}
