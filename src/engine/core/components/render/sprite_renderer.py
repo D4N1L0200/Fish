@@ -1,3 +1,4 @@
+import os
 import pygame
 import pathlib
 from typing import Any
@@ -5,11 +6,12 @@ from ..component import Component
 
 
 class SpriteRenderer(Component):
+    root_dir: str = ""
     required_dependencies: list[str] = ["RendererFrame"]
 
     def __init__(self, path: pathlib.Path | str) -> None:
         super().__init__()
-        self._path: pathlib.Path = pathlib.Path(path)
+        self._path: pathlib.Path = pathlib.Path(os.path.join(self.root_dir, path))
         self._img: pygame.Surface = pygame.image.load(self._path)
 
     @property
